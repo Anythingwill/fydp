@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="java.util.ArrayList"%>
+<%@page import="fydp.Sensor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,13 +13,14 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <%! ArrayList<String> voltages;%>
-    <% voltages = (ArrayList<String>) request.getAttribute("test");%>
+    <%! ArrayList<Sensor> queriedData;%>
+    <% queriedData = (ArrayList<Sensor>) request.getAttribute("test");%>
+    <% int total = 0;%>
     <body>
         <h1>Hello World!</h1>
         <%
-            if (voltages != null) {
-                out.println("<h1>Sensor Data</h1>");
+            if (queriedData != null) {
+              /*  out.println("<h1>Sensor Data</h1>");
                 out.println("<table border=1>");
                 out.println("<tr><th>voltages</th></tr>");
                 for (String volt : voltages) {
@@ -28,6 +30,14 @@
                     
                 }
                 out.println("</table>");
+            */
+              
+              for (Sensor data : queriedData) {
+                  total += data.GetFlow();
+                  out.println(data.Getftime());
+              }
+              String temp = Integer.toString(total);
+              out.println(temp);  
             }
         %>
     </body>

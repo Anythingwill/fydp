@@ -39,7 +39,7 @@ public class QueryServlet extends HttpServlet {
         try {
             if (intQueryNum == 1) {
                 url = "/success.jsp";
-                ArrayList<String> result = MysqlQuery.query1();
+                ArrayList<Sensor> result = MysqlQuery.query1();
                 request.setAttribute("test", result);
             }
             

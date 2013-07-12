@@ -35,19 +35,22 @@ public class MysqlQuery {
         return con;
     }
     
-    public static ArrayList<String> query1()
+    public static ArrayList<Sensor> query1()
     throws ClassNotFoundException, SQLException 
     {
         Connection con = null;
         Statement stmt = null;
-        ArrayList<String> result = null;
+        ArrayList<Sensor> result = null;
         try {
             con = comeon();
             stmt = con.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT * FROM test;");
-            result = new ArrayList<String>();
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM Sensor1 ORDER BY sensTime;");
+            result = new ArrayList<Sensor>();
             while (resultSet.next()) {
-                result.add(resultSet.getString("voltage"));
+                Sensor s = new Sensor(
+                        resultSet.getInt("flow"),
+                        resultSet.getString("sensTime"));
+                result.add(s);
             }
             return result;
         } finally {
