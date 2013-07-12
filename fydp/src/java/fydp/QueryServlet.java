@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -38,6 +39,8 @@ public class QueryServlet extends HttpServlet {
         try {
             if (intQueryNum == 1) {
                 url = "/success.jsp";
+                ArrayList<String> result = MysqlQuery.query1();
+                request.setAttribute("test", result);
             }
             
         } catch (Exception e) {
