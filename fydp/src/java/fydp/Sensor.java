@@ -11,9 +11,9 @@ import java.util.Date;
  */
 public class Sensor {
     private int flow;
-    private DateTime ftime;
+    private Date ftime;
     
-    public Sensor(int flow, String id) {
+    public Sensor(int flow, Date ftime) {
         this.flow = flow;
         this.ftime = ftime;
     }
@@ -22,7 +22,7 @@ public class Sensor {
         return flow;
     }
     
-    public DateTime Getftime(){
+    public Date Getftime(){
         return ftime;
     }
 }

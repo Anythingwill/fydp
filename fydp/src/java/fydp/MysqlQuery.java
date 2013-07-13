@@ -6,6 +6,7 @@ package fydp;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date; 
 /**
  *
  * @author Ethan
@@ -47,9 +48,11 @@ public class MysqlQuery {
             ResultSet resultSet = stmt.executeQuery("SELECT * FROM Sensor1 ORDER BY sensTime;");
             result = new ArrayList<Sensor>();
             while (resultSet.next()) {
+                Date test = new Date();
+                test =  resultSet.getTimestamp("sensTime");
                 Sensor s = new Sensor(
                         resultSet.getInt("flow"),
-                        resultSet.getString("sensTime"));
+                        resultSet.getTimestamp("sensTime"));
                 result.add(s);
             }
             return result;

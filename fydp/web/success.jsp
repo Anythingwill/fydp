@@ -7,6 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="fydp.Sensor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Date;"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +16,7 @@
     </head>
     <%! ArrayList<Sensor> queriedData;%>
     <% queriedData = (ArrayList<Sensor>) request.getAttribute("test");%>
-    <% int total = 0;%>
+    <% double total = 0.00;%>
     <body>
         <h1>Hello World!</h1>
         <%
@@ -31,12 +32,25 @@
                 }
                 out.println("</table>");
             */
-              
+              Date oldD = new Date();
+              Date curD = new Date();
               for (Sensor data : queriedData) {
-                  total += data.GetFlow();
-                  out.println(data.Getftime());
+                  long test;
+                  curD = data.Getftime(); 
+                  test = curD.getTime() - oldD.getTime();
+                  oldD = curD;
+                 // test = (test/(1000*60*60)); doing L/min
+                  //out.println(test);
+                  double one = data.GetFlow();
+                  double two = test/(1000.00 * 60.00);
+                  total += one * two;
+                  //out.println(data.Getftime());
+                  if (total < 0){
+                      
+                      total = 0;
+                  }
               }
-              String temp = Integer.toString(total);
+              String temp = Double.toString(total);
               out.println(temp);  
             }
         %>
