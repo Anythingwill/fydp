@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Ethan
+ * sousauthor Colin
  */
 @WebServlet(name = "QueryServlet", urlPatterns = {"/QueryServlet"})
 public class QueryServlet extends HttpServlet {
