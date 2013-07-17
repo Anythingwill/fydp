@@ -36,7 +36,7 @@ public class MysqlQuery {
         return con;
     }
     
-    public static ArrayList<Sensor> query1()
+    public static ArrayList<Sensor> query1(String start, String end)
     throws ClassNotFoundException, SQLException 
     {
         Connection con = null;
@@ -45,7 +45,21 @@ public class MysqlQuery {
         try {
             con = comeon();
             stmt = con.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT * FROM Sensor1 ORDER BY sensTime;");
+             ResultSet resultSet;
+            if (!start.isEmpty() && start != null){
+                if (!end.isEmpty() && end != null){
+                    resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime >= STR_TO_DATE('"+start+"', '%m/%d/%Y') AND sensTime <= STR_TO_DATE('"+end+"', '%m/%d/%Y') ORDER BY sensTime;");
+                }
+                else{
+                    resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime >= STR_TO_DATE('"+start+"', '%m/%d/%Y') ORDER BY sensTime;");
+                }
+            }
+            else if (!end.isEmpty() && end != null){
+                resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime <= STR_TO_DATE('"+end+"', '%m/%d/%Y') ORDER BY sensTime;");
+            }
+            else{
+                resultSet = stmt.executeQuery("SELECT * FROM Sensor1 ORDER BY sensTime;");
+            }
             result = new ArrayList<Sensor>();
             while (resultSet.next()) {
                 Date test = new Date();

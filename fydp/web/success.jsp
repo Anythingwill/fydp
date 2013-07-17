@@ -51,8 +51,11 @@
                   }
               }
               String temp = Double.toString(total);
-              out.println(temp);  
+              out.println(temp);
+              //out.println(request.getParameter("startDate"));
             }
         %>
+        <li><a href="index.jsp">Index</a></li>
+        
     </body>
 </html>

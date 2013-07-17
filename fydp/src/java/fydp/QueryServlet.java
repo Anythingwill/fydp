@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date; 
 
 /**
  *
@@ -39,7 +40,13 @@ public class QueryServlet extends HttpServlet {
         try {
             if (intQueryNum == 1) {
                 url = "/success.jsp";
-                ArrayList<Sensor> result = MysqlQuery.query1();
+                
+                String start = request.getParameter("startDate");
+                String end = request.getParameter("endDate");
+                ArrayList<Sensor> result = MysqlQuery.query1(start, end);
+                
+                
+                
                 request.setAttribute("test", result);
             }
             
