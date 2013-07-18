@@ -11,5 +11,5 @@
 --SELECT STR_TO_DATE('11,7,2013', '%d,%m,%Y');
 --SET time_zone = '-04:00';
 
-SELECT * FROM Sensor1 ORDER BY sensTime --WHERE sensTime >= STR_TO_DATE('07/02/2013', '%m/%d/%Y') AND sensTime <= STR_TO_DATE('07/15/2013', '%m/%d/%Y') ORDER BY sensTime;
---SELECT * FROM hacked
+--SELECT * FROM Sensor1 ORDER BY sensTime --WHERE sensTime >= STR_TO_DATE('07/02/2013', '%m/%d/%Y') AND sensTime <= STR_TO_DATE('07/15/2013', '%m/%d/%Y') ORDER BY sensTime;
+SELECT * FROM hacked
