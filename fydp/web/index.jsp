@@ -19,17 +19,26 @@
           $("#datepicker2").datepicker();
         });
         </script>
+        <style type="text/css">
+            #myoutercontainer { position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -50px;
+                margin-left: -100px;}
+            
+        </style>
     </head>
     <body>
-        <h1>Please select one of the following:</h1>
-        <ul>
-        <li><a href="QueryServlet?qnum=1">Query 1</a></li>
-        <li><a href="QueryServlet?qnum=2">Query 2</a></li>
-        </ul>
-        <form name="start" ACTION="QueryServlet?qnum=1" METHOD="post">
-            Start Date:<input id="datepicker" name ="startDate" />
-            <br>End Date:<input id="datepicker2" name ="endDate" />
-            <td><INPUT name="SUBMIT" TYPE=SUBMIT></td>
-        </form>
+        <div id="myoutercontainer">
+            
+                <form name="start" ACTION="QueryServlet?qnum=1" METHOD="post">
+                    Start Date:<input id="datepicker" name ="startDate" />
+                    <br>End Date:<input id="datepicker2" name ="endDate" />
+                    <br><td><INPUT name="SUBMIT" TYPE=SUBMIT></td>
+                </form>
+            
+        </div>
+    
     </body>
+    
 </html>

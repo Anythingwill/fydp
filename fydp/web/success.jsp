@@ -13,6 +13,14 @@
     <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style type="text/css">
+            #myoutercontainer { position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -175px;
+                margin-left: -100px;}
+            
+        </style>
     </head>
     <%! ArrayList<Sensor> queriedData;%>
     <% queriedData = (ArrayList<Sensor>) request.getAttribute("test");%>
@@ -21,25 +29,15 @@
     <%Double[] tempTotal = new Double[queriedData.size()];%>
     <%int hic = 4;%>
     <body onload="p.onload()">
-        <h1>Hello World!</h1>
+        <div id="myoutercontainer">
         <%
             if (queriedData != null) {
-              /*  out.println("<h1>Sensor Data</h1>");
-                out.println("<table border=1>");
-                out.println("<tr><th>voltages</th></tr>");
-                for (String volt : voltages) {
-                    out.println("<tr><td>");
-                    out.print(volt);
-                    out.print("</td><td>");
-                    
-                }
-                out.println("</table>");
-            */
+             
               Date oldD = new Date();
               Date curD = new Date();
-              out.println("<h1>Sensor Data</h1>");
+            /*  out.println("<h1>Sensor Data</h1>");
                 out.println("<table border=1>");
-                out.println("<tr><th>Flow</th><th>time</th><th>total</th></tr>");
+                out.println("<tr><th>Flow</th><th>time</th><th>total</th></tr>");*/
 //                int tessl = queriedData.get(0).GetFlow();
                 int i;
                 i = 0;
@@ -67,21 +65,21 @@
                       
                       total = 0;
                   }
-                  out.println("<tr><td>");
+                 /* out.println("<tr><td>");
                     out.print(data.GetFlow());
                     out.print("</td><td>");
                     out.print(data.Getftime());
                     out.print("</td><td>");
                     out.print(tempTotal[i]);
-                    out.print("</td>");
+                    out.print("</td>");*/
                     i++;
               }
               String temp = Double.toString(total);
-              out.println(temp);
+              out.println(temp + " Litres total used");
               //out.println(request.getParameter("startDate"));
             }
         %>
-        <li><a href="index.jsp">Index</a></li>
+        
         
         <!-- graph code begins here-->
         <script type="text/javascript" src="wz_jsgraphics.js"></script>
@@ -111,23 +109,12 @@
                         g.add('', scriptFlow[i]);
                     }
                     
-                    /*g.add('1', 145);
-                    g.add('2', 0);
-                    g.add('3', 175);
-                    g.add('4', 130);
-                    g.add('5', 150);
-                    g.add('6', 175);
-                    g.add('7', 205);
-                    g.add('8', 125);
-                    g.add('9', 125);
-                    g.add('10', 135);
-                    g.add('11', 125);
-            */
-                    g.render("lineCanvas", "Line Graph");
+                    g.render("lineCanvas", "Water Usage");
                 }
         };
         </script>
         <!-- graph code ends here-->
-        
+        <a href="index.jsp">Return to Index</a>
+        </div>
     </body>
 </html>
