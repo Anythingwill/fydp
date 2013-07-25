@@ -17,6 +17,7 @@ import java.util.Date;
 /**
  *
  * @author Ethan
+ * sousauthor Colin
  */
 @WebServlet(name = "QueryServlet", urlPatterns = {"/QueryServlet"})
 public class QueryServlet extends HttpServlet {
