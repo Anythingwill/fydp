@@ -36,9 +36,32 @@ public class MysqlQuery {
         return con;
     }
     
+    private static void importSQL()
+            throws ClassNotFoundException, SQLException
+    {
+        Connection con = null;
+        Statement stmt = null;
+        String query;
+        try {
+            con = comeon();
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+//            query = "LOAD DATA INFILE '"+filename+"' INTO TABLE testtable  FIELDS TERMINATED BY ',' (text,price)";           
+//            stmt.executeUpdate(query);
+            
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
     public static ArrayList<Sensor> query1(String start, String end)
     throws ClassNotFoundException, SQLException 
     {
+       // importSQL();
         Connection con = null;
         Statement stmt = null;
         ArrayList<Sensor> result = null;
@@ -65,7 +88,7 @@ public class MysqlQuery {
                 Date test = new Date();
                 test =  resultSet.getTimestamp("sensTime");
                 Sensor s = new Sensor(
-                        resultSet.getInt("flow"),
+                        resultSet.getDouble("flow"),
                         resultSet.getTimestamp("sensTime"));
                 result.add(s);
             }

@@ -10,15 +10,15 @@ import java.util.Date;
  * @author Ethan
  */
 public class Sensor {
-    private int flow;
+    private double flow;
     private Date ftime;
     
-    public Sensor(int flow, Date ftime) {
+    public Sensor(double flow, Date ftime) {
         this.flow = flow;
         this.ftime = ftime;
     }
     
-    public int GetFlow(){
+    public double GetFlow(){
         return flow;
     }
     

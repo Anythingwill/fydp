@@ -8,6 +8,7 @@
 <%@page import="fydp.Sensor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Date;"%> 
+<%@page import="java.util.Calendar;"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,16 +26,19 @@
     <%! ArrayList<Sensor> queriedData;%>
     <% queriedData = (ArrayList<Sensor>) request.getAttribute("test");%>
     <% double total = 0.00;%>
-    <%int[] tempFlow = new int[queriedData.size()];%>
-    <%Double[] tempTotal = new Double[queriedData.size()];%>
+    <%double[] tempFlow = new double[queriedData.size()];%>
+    <%double[] tempTotal = new double[queriedData.size()];%>
+    <%String[] sensorDate = new String[queriedData.size()];%>
     <%int hic = 4;%>
     <body onload="p.onload()">
         <div id="myoutercontainer">
+            <font size="4">
         <%
             if (queriedData != null) {
              
               Date oldD = new Date();
               Date curD = new Date();
+              double oldFlow = 0;
             /*  out.println("<h1>Sensor Data</h1>");
                 out.println("<table border=1>");
                 out.println("<tr><th>Flow</th><th>time</th><th>total</th></tr>");*/
@@ -44,7 +48,11 @@
                 
               for (Sensor data : queriedData) {
                   
+                  Calendar cal = Calendar.getInstance();
+                  cal.setTime(data.Getftime());
                   tempFlow[i] = data.GetFlow();
+                  int dayMonth = cal.get(Calendar.DAY_OF_MONTH);
+                  sensorDate[i] = Integer.toString(dayMonth);
                   
                   //ArrayList<int> tempFlow;
                   //tempFlow = data.GetFlow();
@@ -55,13 +63,16 @@
                   oldD = curD;
                  // test = (test/(1000*60*60)); doing L/min
                   //out.println(test);
-                  double one = data.GetFlow();
-                  double two = test/(1000.00 * 60.00);
-                  tempTotal[i] = one * two;
                   
-                  total += one * two;
+                  double two = test/(1000.00 * 60.00);
+                  
+                  double used = oldFlow * two;
+                  tempTotal[i] = used*1000;
+                  
+                  total += used;
+                  oldFlow = data.GetFlow();
                   //out.println(data.Getftime());
-                  if (total < 0){
+                  if (i == 0){
                       
                       total = 0;
                   }
@@ -78,7 +89,7 @@
               out.println(temp + " Litres total used");
               //out.println(request.getParameter("startDate"));
             }
-        %>
+        %></font>
         
         
         <!-- graph code begins here-->
@@ -100,20 +111,35 @@
                     var g = new line_graph();
                     
                     var scriptFlow = new Array();
+                    var scriptDate = new Array();
+                    
                     <%int k;
                      for (k = 1; k< tempTotal.length; k++) {
                     %> scriptFlow[<%=k%>]= <%=tempTotal[k]%>
+                       scriptDate[<%=k%>]= "<%=sensorDate[k]%>"
                     <%}%>
                     
-                    for(var i=1; i< <%=tempTotal.length%>;i++){
-                        g.add('', scriptFlow[i]);
+                    var prevDate= 100;
+                    for(var i=1; i< scriptFlow.length;i++){
+                        if (scriptDate[i] == prevDate){
+                            g.add('', scriptFlow[i]);
+                        }
+                        else{
+                            g.add(scriptDate[i], scriptFlow[i]);
+                        }
+                        prevDate = scriptDate[i];
                     }
                     
-                    g.render("lineCanvas", "Water Usage");
+                    
+//                    g.setMax(300);
+//                    g.setMin(0);
+                    g.render("lineCanvas", "Bathroom Sink");
+                    
                 }
         };
         </script>
         <!-- graph code ends here-->
+        
         <a href="index.jsp">Return to Index</a>
         </div>
     </body>
