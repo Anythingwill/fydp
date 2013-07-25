@@ -88,9 +88,9 @@ function line_graph()
   {
    var jg = new jsGraphics(canvas);
 
-   var h  = 250;
-   var sx = 40;
-   var dw = 2;
+   var h  = 250; //height of graph, creates scroll bar doesn't actually make taller
+   var sx = 40; //40 buffer on left side for vertical axis
+   var dw = 2; //15 how far away each data point is from each other (fit more on page with lower number). Currently 250/<this#>=how many points will show up
    var shadow = 0;
    var fnt    = 12;
 

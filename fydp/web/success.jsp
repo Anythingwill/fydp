@@ -9,6 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Date;"%> 
 <%@page import="java.util.Calendar;"%> 
+<%@page import="java.text.DecimalFormat;"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,6 +21,22 @@
                 left: 50%;
                 margin-top: -175px;
                 margin-left: -100px;}
+            #memo {
+                
+                transform:rotate(270deg);
+                -o-transform:rotate(270deg);
+                -moz-transform:rotate(270deg);
+                -webkit-transform:rotate(270deg);
+                position:absolute;
+                top:110px;
+                left:-80px;
+                
+            }
+            #memo1 {
+                width:5em; word-wrap:break-word; margin:2em;
+                
+                
+            }
             
         </style>
     </head>
@@ -51,8 +68,8 @@
                   Calendar cal = Calendar.getInstance();
                   cal.setTime(data.Getftime());
                   tempFlow[i] = data.GetFlow() *1000;
-                  int dayMonth = cal.get(Calendar.DAY_OF_MONTH);
-                  sensorDate[i] = Integer.toString(dayMonth);
+                  String dayMonth = Integer.toString(cal.get(Calendar.HOUR_OF_DAY)) +":"+ Integer.toString(cal.get(Calendar.MINUTE));
+                  sensorDate[i] = dayMonth;
                   
                   //ArrayList<int> tempFlow;
                   //tempFlow = data.GetFlow();
@@ -85,11 +102,13 @@
                     out.print("</td>");*/
                     i++;
               }
-              String temp = Double.toString(total);
-              out.println(temp + " Litres total used");
+              //Double temp = (new DecimalFormat("#.##").format(total));
+              out.println((new DecimalFormat("#.##").format(total)) + " Litres total used");
               //out.println(request.getParameter("startDate"));
             }
-        %></font>
+        %>
+        
+        </font>
         
         
         <!-- graph code begins here-->
@@ -98,10 +117,12 @@
 
         <!-- Line Graph script-By Balamurugan S http://www.sbmkpm.com/ //-->
         <!-- Script featured/ available at Dynamic Drive code: http://www.dynamicdrive.com //-->
-
         </script>
+        <div id="memo">Flow Rate (mL/min)</div> <!--Y axis label -->
+        <div  id="lineCanvas" style="overflow: auto; position:relative;height:300px;width:400px;">
+            
+        </div>
 
-        <div id="lineCanvas" style="overflow: auto; position:relative;height:300px;width:400px;"></div>
 
         <script type="text/javascript">
             var p = {
@@ -112,6 +133,7 @@
                     
                     var scriptFlow = new Array();
                     var scriptDate = new Array();
+                    var count = 100;
                     
                     <%int k;
                      for (k = 1; k< tempTotal.length; k++) {
@@ -121,23 +143,28 @@
                     
                     var prevDate= 100;
                     for(var i=1; i< scriptFlow.length;i++){
-                        if (scriptDate[i] == prevDate){
-                            g.add('', scriptFlow[i]);
+                        if (count > 14){
+                            g.add(scriptDate[i], scriptFlow[i]);
+                            count = 0;
                         }
                         else{
-                            g.add(scriptDate[i], scriptFlow[i]);
+                            g.add('', scriptFlow[i]);
                         }
+                        count++;
                         prevDate = scriptDate[i];
                     }
                     
                     
 //                    g.setMax(300);
 //                    g.setMin(0);
+
                     g.render("lineCanvas", "Bathroom Sink");
                     
                 }
         };
+        
         </script>
+        
         <!-- graph code ends here-->
         
         <a href="index.jsp">Return to Index</a>
