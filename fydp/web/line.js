@@ -90,7 +90,7 @@ function line_graph()
 
    var h  = 250;
    var sx = 40;
-   var dw = 15;
+   var dw = 2;
    var shadow = 0;
    var fnt    = 12;
 

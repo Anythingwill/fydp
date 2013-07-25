@@ -115,7 +115,7 @@
                     
                     <%int k;
                      for (k = 1; k< tempTotal.length; k++) {
-                    %> scriptFlow[<%=k%>]= <%=tempTotal[k]%>
+                    %> scriptFlow[<%=k%>]= <%=tempFlow[k]%>
                        scriptDate[<%=k%>]= "<%=sensorDate[k]%>"
                     <%}%>
                     
