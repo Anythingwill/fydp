@@ -58,7 +58,7 @@ public class MysqlQuery {
         }
     }
     
-    public static ArrayList<Sensor> query1(String start, String end)
+    public static ArrayList<Sensor> query1(String start, String end, String startHour, String startMinute, String endHour, String endMinute)
     throws ClassNotFoundException, SQLException 
     {
        // importSQL();
@@ -71,14 +71,15 @@ public class MysqlQuery {
              ResultSet resultSet;
             if (!start.isEmpty() && start != null){
                 if (!end.isEmpty() && end != null){
-                    resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime >= STR_TO_DATE('"+start+"', '%m/%d/%Y') AND sensTime <= STR_TO_DATE('"+end+"', '%m/%d/%Y') ORDER BY sensTime;");
+                    String hg = "SELECT * FROM Sensor1 WHERE sensTime >= STR_TO_DATE('"+start+" "+startHour+":"+startMinute+"', '%m/%d/%Y %H:%i') AND sensTime <= STR_TO_DATE('"+end+" "+endHour+":"+endMinute+"', '%m/%d/%Y %H:%i') ORDER BY sensTime;";
+                    resultSet = stmt.executeQuery(hg);
                 }
                 else{
-                    resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime >= STR_TO_DATE('"+start+"', '%m/%d/%Y') ORDER BY sensTime;");
+                    resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime >= STR_TO_DATE('"+start+" "+startHour+":"+startMinute+"', '%m/%d/%Y %H:%i') ORDER BY sensTime;");
                 }
             }
             else if (!end.isEmpty() && end != null){
-                resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime <= STR_TO_DATE('"+end+"', '%m/%d/%Y') ORDER BY sensTime;");
+                resultSet = stmt.executeQuery("SELECT * FROM Sensor1 WHERE sensTime <= STR_TO_DATE('"+end+" "+endHour+":"+endMinute+"', '%m/%d/%Y %H:%i') ORDER BY sensTime;");
             }
             else{
                 resultSet = stmt.executeQuery("SELECT * FROM Sensor1 ORDER BY sensTime;");

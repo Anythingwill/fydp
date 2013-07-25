@@ -43,7 +43,11 @@ public class QueryServlet extends HttpServlet {
                 
                 String start = request.getParameter("startDate");
                 String end = request.getParameter("endDate");
-                ArrayList<Sensor> result = MysqlQuery.query1(start, end);
+                String startHour = request.getParameter("startHour");
+                String startMinute = request.getParameter("startMinute");
+                String endHour = request.getParameter("endHour");
+                String endMinute = request.getParameter("endMinute");
+                ArrayList<Sensor> result = MysqlQuery.query1(start, end, startHour, startMinute, endHour, endMinute);
                 
                 
                 
