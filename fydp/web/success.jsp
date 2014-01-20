@@ -68,7 +68,7 @@
                   Calendar cal = Calendar.getInstance();
                   cal.setTime(data.Getftime());
                   tempFlow[i] = data.GetFlow() *1000;
-                  String dayMonth = Integer.toString(cal.get(Calendar.HOUR_OF_DAY)) +":"+ Integer.toString(cal.get(Calendar.MINUTE));
+                  String dayMonth = Integer.toString(cal.get(Calendar.HOUR_OF_DAY)) +":"+ String.format("%05d", (cal.get(Calendar.MINUTE)));
                   sensorDate[i] = dayMonth;
                   
                   //ArrayList<int> tempFlow;

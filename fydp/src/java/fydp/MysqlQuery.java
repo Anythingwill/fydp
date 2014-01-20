@@ -13,9 +13,9 @@ import java.util.Date;
  */
 public class MysqlQuery {
     
-    public static final String url = "jdbc:mysql://sql3.freemysqlhosting.net:3306/";
-    public static final String user = "sql313628";
-    public static final String pwd = "vR2%tL2*";
+    public static final String url = "jdbc:mysql://sql4.freemysqlhosting.net:3306/";
+    public static final String user = "sql427309";
+    public static final String pwd = "aH4*uJ5%";
     
     
     public static Connection comeon()
@@ -26,7 +26,7 @@ public class MysqlQuery {
         try {
             con.createStatement();
             stmt = con.createStatement();
-            stmt.execute("USE sql313628");
+            stmt.execute("USE sql427309");
             String a = "test";
         } finally {
             if (stmt != null) {
